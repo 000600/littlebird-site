@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://000600.github.io/littlebird-site/sitemap.xml

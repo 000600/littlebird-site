@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://000600.github.io/littlebird-site/">
+<title>Little Bird</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Save the gift hints people drop all year. Birthdays, reminders, a holiday planner with budgets — private, no account. Free on iPhone.">
+<meta property="og:title" content="Little Bird — Gift Idea Keeper for Birthdays & Holidays">
+<meta property="og:description" content="Every gift hint they drop, kept for the day it matters. Private, no account, free on iPhone.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Little Bird: Gift Idea Keeper",
+      "operatingSystem": "iOS 26",
+      "applicationCategory": "LifestyleApplication",
+      "description": "A private gift ideas app: save the hints people drop all year, with birthdays, reminders, a holiday planner with budgets, and gift history.",
+      "offers": [
+        {"@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free"},
+        {"@type": "Offer", "price": "14.99", "priceCurrency": "USD", "name": "Little Bird Plus (yearly)"},
+        {"@type": "Offer", "price": "29.99", "priceCurrency": "USD", "name": "Little Bird Plus (lifetime)"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Is Little Bird free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It is free for up to four people and one gifting season, with unlimited hints and reminders. Little Bird Plus unlocks everyone, every season, Idea Spark and export for $14.99 a year after a 14-day free trial, or $29.99 once."}},
+        {"@type": "Question", "name": "Do the people I add know?", "acceptedAnswer": {"@type": "Answer", "text": "No. Nothing is shared or sent. Little Bird is a private notebook that lives on your iPhone."}},
+        {"@type": "Question", "name": "Can I import birthdays?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, from Contacts. Only the people you choose are saved."}},
+        {"@type": "Question", "name": "Does it work with Amazon, Etsy and Instagram?", "acceptedAnswer": {"@type": "Answer", "text": "Share any product page to Little Bird from the iOS Share Sheet and it fills in the name, picture and price."}},
+        {"@type": "Question", "name": "Why not just use the Notes app?", "acceptedAnswer": {"@type": "Answer", "text": "Notes doesn't know anyone's birthday, what you already bought, what you gave last year, or how much you've spent. Little Bird does, and reminds you two weeks before."}}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* Layout: a single stationery column that widens into two at the hero and feature rows; the ribbon runs edge to edge between sections. */
+:root {
+  --paper: #F6F1E9;
+  --paper-2: #EFE8DC;
+  --ink: #1E1A17;
+  --ink-2: rgba(30, 26, 23, .64);
+  --ink-3: rgba(30, 26, 23, .42);
+  --rule: rgba(30, 26, 23, .13);
+  --ribbon: #C1432E;
+  --ribbon-back: #8F2F20;
+  --sage: #557553;
+  --plum: #7B4B78;
+  --harbor: #3B6690;
+  --display: "Newsreader", "New York", "Iowan Old Style", Georgia, serif;
+  --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --measure: 62ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #151214; --paper-2: #1D191B; --ink: #F2EBE1; --ink-2: rgba(242, 235, 225, .66);
+    --ink-3: rgba(242, 235, 225, .44); --rule: rgba(242, 235, 225, .16);
+    --ribbon: #E46A50; --ribbon-back: #A9493A; --sage: #97BA92; --plum: #C48EC1; --harbor: #89B1D6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #151214; --paper-2: #1D191B; --ink: #F2EBE1; --ink-2: rgba(242, 235, 225, .66);
+  --ink-3: rgba(242, 235, 225, .44); --rule: rgba(242, 235, 225, .16);
+  --ribbon: #E46A50; --ribbon-back: #A9493A; --sage: #97BA92; --plum: #C48EC1; --harbor: #89B1D6;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+em { font-style: italic; }
+a { color: var(--ribbon); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--ribbon); outline-offset: 3px; border-radius: 4px; }
+.eyebrow { font: 600 12px/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.eyebrow.red { color: var(--ribbon); }
+.rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+
+/* Header */
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 400 22px/1 var(--display); }
+.brand svg { width: 34px; height: 34px; }
+.badge { font: 600 14px/1 var(--body); color: var(--ink); text-decoration: none; padding: 11px 16px; border: 1px solid var(--rule); border-radius: 999px; white-space: nowrap; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; align-items: center; padding-block: 28px 8px; }
+.hero h1 { font-size: clamp(42px, 6.4vw, 76px); line-height: 1.02; margin-top: 18px; }
+.hero h1 em { color: var(--ribbon); }
+.hero .lede { font: 400 clamp(19px, 2vw, 22px)/1.45 var(--display); color: var(--ink-2); margin-top: 22px; max-width: 34ch; }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 30px; }
+.cta .launch { font: 600 16px/1 var(--body); color: #fff; background: var(--ribbon); padding: 16px 22px; border-radius: 999px; }
+.cta small { color: var(--ink-2); font-size: 14px; }
+.phone { justify-self: center; width: min(100%, 300px); }
+.phone img { display: block; width: 100%; height: auto; border-radius: 40px; border: 1px solid var(--rule); }
+
+/* Ribbon band */
+.ribbon-band { position: relative; height: 150px; margin-top: 10px; }
+.ribbon-band canvas { width: 100%; height: 100%; display: block; }
+
+/* Sections */
+section.block { padding-block: 72px; }
+.section-head { max-width: var(--measure); }
+.section-head h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.08; margin-top: 14px; }
+.section-head h2 em { color: var(--ribbon); }
+.section-head p { margin-top: 16px; color: var(--ink-2); font-size: 18px; }
+
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; margin-top: 46px; }
+.step { display: grid; gap: 14px; align-content: start; }
+.step .num { font: 400 15px/1 var(--display); font-style: italic; color: var(--ribbon); }
+.step h3 { font-size: 26px; line-height: 1.15; }
+.step p { color: var(--ink-2); }
+.step img { width: 100%; max-width: 260px; height: auto; border-radius: 30px; border: 1px solid var(--rule); margin-top: 6px; }
+.note {
+  margin-top: 6px; max-width: 300px; padding: 14px 16px; border-radius: 20px; border: 1px solid var(--rule);
+  background: var(--paper-2); display: grid; gap: 4px; font-size: 14px;
+}
+.note b { font-weight: 600; }
+.note span { color: var(--ink-2); }
+
+.feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.feature.flip .shot { order: -1; }
+.feature .shot { justify-self: center; width: min(100%, 300px); }
+.feature .shot img { width: 100%; height: auto; border-radius: 40px; border: 1px solid var(--rule); display: block; }
+.ledger { margin-top: 28px; display: grid; gap: 0; max-width: 460px; }
+.ledger div { display: flex; justify-content: space-between; gap: 16px; padding-block: 13px; border-top: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.ledger div:last-child { border-bottom: 1px solid var(--rule); }
+.ledger .who { font: 400 19px/1.3 var(--display); }
+.ledger .state { font: 600 11px/1.9 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.ledger .state.wrapped { color: var(--ribbon); }
+.ledger .state.bought { color: var(--ink); }
+.budget { margin-top: 26px; max-width: 460px; }
+.budget .amount { font: 400 40px/1 var(--display); font-variant-numeric: tabular-nums; }
+.budget .amount span { font-size: 20px; color: var(--ink-2); }
+.bar { position: relative; height: 6px; margin-top: 14px; }
+.bar::before { content: ""; position: absolute; left: 0; right: 0; top: 2px; height: 2px; background: var(--rule); }
+.bar i { position: absolute; left: 0; top: 0; height: 6px; width: 39.5%; border-radius: 6px; background: var(--ribbon); }
+
+.surfaces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 40px; border-top: 1px solid var(--rule); }
+.surface { padding: 22px 22px 22px 0; display: grid; gap: 8px; align-content: start; }
+.surface + .surface { padding-left: 22px; border-left: 1px solid var(--rule); }
+.surface h3 { font-size: 22px; }
+.surface p { color: var(--ink-2); font-size: 15px; }
+.surface code { font: 500 13px/1.4 ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink); }
+
+.privacy { background: var(--ink); color: var(--paper); }
+.privacy .section-head p { color: color-mix(in srgb, var(--paper) 72%, transparent); }
+.privacy h2 em { color: var(--ribbon); }
+.facts { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 32px; font: 400 20px/1.3 var(--display); }
+.facts span::before { content: "— "; color: var(--ribbon); }
+
+.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 40px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.plan { padding: 30px 30px 30px 0; display: grid; gap: 10px; align-content: start; }
+.plan + .plan { padding-left: 30px; border-left: 1px solid var(--rule); }
+.plan h3 { font-size: 30px; }
+.plan .price { font: 400 22px/1.2 var(--display); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.plan ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.plan li { padding-left: 18px; position: relative; }
+.plan li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 2px; background: var(--ribbon); }
+
+details { border-top: 1px solid var(--rule); padding-block: 18px; max-width: 760px; }
+details:last-of-type { border-bottom: 1px solid var(--rule); }
+summary { cursor: pointer; font: 400 21px/1.3 var(--display); list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--ribbon); font-family: var(--body); }
+details[open] summary::after { content: "–"; }
+details p { margin-top: 10px; color: var(--ink-2); max-width: var(--measure); }
+
+footer { padding-block: 48px 64px; display: grid; gap: 28px; }
+.policy { max-width: var(--measure); display: grid; gap: 12px; color: var(--ink-2); font-size: 15px; }
+.policy h2 { font-size: 30px; color: var(--ink); }
+.policy b { color: var(--ink); font-weight: 600; }
+.foot-nav { display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 15px; }
+.foot-nav a { color: var(--ink-2); }
+.foot-nav a:hover { color: var(--ribbon); }
+.foot-line { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--ink-3); font-size: 14px; }
+
+@media (max-width: 860px) {
+  .hero, .feature { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .feature.flip .shot { order: 0; }
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .surfaces { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .surface:nth-child(3) { padding-left: 0; border-left: 0; }
+  .surface:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  section.block { padding-block: 56px; }
+}
+@media (max-width: 560px) {
+  .surfaces, .plans { grid-template-columns: minmax(0, 1fr); }
+  .surface, .surface + .surface { padding: 20px 0; border-left: 0; }
+  .surface + .surface { border-top: 1px solid var(--rule); }
+  .plan, .plan + .plan { padding: 26px 0; border-left: 0; }
+  .plan + .plan { border-top: 1px solid var(--rule); }
+  .ribbon-band { height: 120px; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top" aria-label="Little Bird home">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M6 63 Q25 50 44 45 C51 33 60 27 71 29 C77 30 81 33 84 37 L93 39 L83 43 C84 55 78 67 66 72 C48 79 24 74 6 63 Z M31 58 C40 44 55 43 63 55" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="73" cy="36" r="3.6" fill="var(--ribbon)"/>
+      </svg>
+      Little Bird
+    </a>
+    <a class="badge" href="#plans">Free on iPhone</a>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">A private gift ideas app for iPhone</p>
+        <h1>Every gift hint they drop, <em>kept for the day it matters.</em></h1>
+        <p class="lede">“I’d love one of those.” “Mine just broke.” People tell you what they want all year. Little Bird keeps it, and brings it back two weeks before their day.</p>
+        <div class="cta">
+          <span class="launch">On the App Store October 27</span>
+          <small>Free · No account · iOS 26 and later</small>
+        </div>
+      </div>
+      <div class="phone">
+        <img src="img/home.jpg" width="560" height="1217" alt="Little Bird on iPhone: “Maya’s birthday is in 12 days,” with a red ribbon timeline of upcoming birthdays.">
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="ribbon-band" aria-hidden="true"><canvas id="ribbon"></canvas></div>
+
+<section class="block" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow red">How it works</p>
+      <h2>A gift idea tracker that <em>remembers for you.</em></h2>
+      <p>The best gifts are things people told you months ago. The trick is catching them, and having them in front of you at the right time.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">First</span>
+        <h3>Hear it, save it</h3>
+        <p>Three seconds from “I’d love that” to saved — with what they said, word for word. Paste a link and the name, photo and price fill in.</p>
+        <img src="img/capture.jpg" width="560" height="1217" loading="lazy" alt="The capture sheet: a linen apron saved for Mom, with what she said and the price.">
+      </div>
+      <div class="step">
+        <span class="num">Then</span>
+        <h3>Know them by heart</h3>
+        <p>Each person keeps their hints, sizes, favorites and the things that are “not for them.” Their birthday and the age they’re turning sit right on top.</p>
+        <img src="img/person.jpg" width="560" height="1217" loading="lazy" alt="Maya’s page: her birthday in 12 days and three saved hints.">
+      </div>
+      <div class="step">
+        <span class="num">When it counts</span>
+        <h3>Ready before their day</h3>
+        <p>A nudge arrives with time to order, wrap and ship.</p>
+        <div class="note" role="img" aria-label="Example reminder notification">
+          <b>Maya’s birthday is two weeks away</b>
+          <span>A little bird saved you 3 hints. Time to choose one.</span>
+        </div>
+        <div class="note" role="img" aria-label="Example day-of notification">
+          <b>It’s Maya’s birthday</b>
+          <span>Say it with something they mentioned.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="block" id="holidays">
+  <div class="wrap feature">
+    <div>
+      <div class="section-head">
+        <p class="eyebrow red">Holiday planner</p>
+        <h2>A Christmas gift list with a budget <em>that’s actually right.</em></h2>
+        <p>Pick who you’re buying for and set a budget. Each gift moves from Idea to Bought, Wrapped and Given — and spent and left update as you go.</p>
+      </div>
+      <div class="budget" aria-label="Example budget: 316 dollars spent of 800">
+        <div class="amount">$316 <span>of $800 · $484 left</span></div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="ledger" aria-label="Example list">
+        <div><span class="who">Mom</span><span class="state wrapped">Wrapped</span></div>
+        <div><span class="who">Sam</span><span class="state bought">Bought</span></div>
+        <div><span class="who">Priya</span><span class="state">Planned</span></div>
+        <div><span class="who">Maya</span><span class="state">To do · 3 hints</span></div>
+      </div>
+    </div>
+    <div class="shot">
+      <img src="img/seasons.jpg" width="560" height="1217" loading="lazy" alt="The Holidays 2026 planner: $316 of $800 spent and six people with their gift status.">
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="block" id="history">
+  <div class="wrap feature flip">
+    <div>
+      <div class="section-head">
+        <p class="eyebrow red">Gift history</p>
+        <h2>Never give the same gift <em>twice.</em></h2>
+        <p>Everything you give is kept by year, with what it was for and what it cost. Next December starts with last December in front of you.</p>
+      </div>
+    </div>
+    <div class="shot">
+      <img src="img/given.jpg" width="560" height="1217" loading="lazy" alt="Mom’s gift history: a pasta class in 2026, a silk scarf and a novel subscription in 2025, a planter in 2024.">
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="block" id="anywhere">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow red">Save it wherever you hear it</p>
+      <h2>At the café, in the car, <em>mid-scroll.</em></h2>
+    </div>
+    <div class="surfaces">
+      <div class="surface"><h3>Share Sheet</h3><p>From Safari, Etsy, Amazon or Instagram — straight into someone’s hints.</p></div>
+      <div class="surface"><h3>Siri</h3><p><code>“Save a gift idea in Little Bird”</code> without opening anything.</p></div>
+      <div class="surface"><h3>Widgets</h3><p>Whose day is next and how many hints you have, on your Home and Lock Screen.</p></div>
+      <div class="surface"><h3>Idea Spark</h3><p>Stuck? Suggestions from what they love, made on your iPhone with Apple Intelligence.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block privacy" id="private">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow red">Private by design</p>
+      <h2>The people you love <em>aren’t a dataset.</em></h2>
+      <p>Little Bird has no account, no ads and no analytics. Everything you save stays on your iPhone. The App Store privacy label reads “Data Not Collected.”</p>
+    </div>
+    <div class="facts"><span>No account</span><span>No ads</span><span>No tracking</span><span>On-device ideas</span></div>
+  </div>
+</section>
+
+<section class="block" id="plans">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow red">Pricing</p>
+      <h2>Free to start. <em>Plus when your nest fills up.</em></h2>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <p class="price">$0</p>
+        <ul>
+          <li>Up to four people</li>
+          <li>Unlimited hints, sizes and notes</li>
+          <li>Birthday and holiday reminders</li>
+          <li>One gifting season with a budget</li>
+          <li>Widgets, Siri and the Share Sheet</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Little Bird Plus</h3>
+        <p class="price">$14.99 a year after a 14-day free trial, or $29.99 once</p>
+        <ul>
+          <li>Everyone you love, no limit</li>
+          <li>Every season: holidays, Mother’s Day, a wedding party</li>
+          <li>Idea Spark on Apple Intelligence iPhones</li>
+          <li>Export every hint and gift as a spreadsheet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq" style="padding-top: 8px">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom: 18px">
+      <p class="eyebrow red">Questions</p>
+      <h2>Good to know</h2>
+    </div>
+    <details><summary>Is Little Bird free?</summary><p>Yes. It’s free for up to four people and one gifting season, with unlimited hints and reminders. Plus unlocks everyone, every season, Idea Spark and export for $14.99 a year after a 14-day free trial, or $29.99 once.</p></details>
+    <details><summary>Do the people I add know?</summary><p>No. Nothing is shared or sent. It’s your private notebook, on your iPhone.</p></details>
+    <details><summary>Can I import birthdays?</summary><p>Yes, from Contacts. Only the people you choose are saved.</p></details>
+    <details><summary>Does it work with Amazon, Etsy and Instagram?</summary><p>Share any product page to Little Bird from the Share Sheet. It fills in the name, picture and price.</p></details>
+    <details><summary>Why not just use the Notes app?</summary><p>Notes doesn’t know anyone’s birthday, what you already bought, what you gave last year, or how much you’ve spent. Little Bird does — and reminds you two weeks before.</p></details>
+  </div>
+</section>
+
+<div class="wrap">
+  <hr class="rule">
+  <footer>
+    <div class="policy" id="privacy">
+      <h2>Privacy policy</h2>
+      <p><b>Effective October 18, 2026.</b> Little Bird collects nothing. There is no account system, no analytics SDK, no advertising and no server that receives your data.</p>
+      <p><b>Where your data lives.</b> People, hints, dates, budgets and gift history are stored on your iPhone, shared only with Little Bird’s own widget and Share extension. Your data is included in your device backups like any other app.</p>
+      <p><b>Contacts.</b> If you import birthdays, Little Bird reads names and birthdays on-device and saves only the people you select.</p>
+      <p><b>Links.</b> When you paste or share a link, your iPhone fetches that public page directly to read its title, image and price.</p>
+      <p><b>Idea Spark.</b> Suggestions are generated by Apple’s on-device Foundation Models. Your notes never leave your iPhone.</p>
+      <p><b>Purchases</b> are handled by Apple. We never see payment details. Delete a person or hint in the app, or delete the app, to remove everything.</p>
+      <p><b>Contact:</b> see the <a href="support/">support page</a>. The full policy also lives at <a href="privacy/">privacy</a>.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Guides and tools">
+      <a href="guide/reverse-gift-list.html">The reverse gift list: how to keep gift ideas all year</a>
+      <a href="calculator/christmas-gift-budget.html">Christmas gift budget calculator</a>
+      <a href="privacy/">Privacy policy</a>
+      <a href="support/">Support</a>
+    </nav>
+    <div class="foot-line"><span>© 2026 Little Bird</span><span>Made for people who listen.</span></div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById("ribbon");
+  const ctx = canvas.getContext("2d");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const bird = new Path2D("M6 63 Q25 50 44 45 C51 33 60 27 71 29 C77 30 81 33 84 37 L93 39 L83 43 C84 55 78 67 66 72 C48 79 24 74 6 63 Z M31 58 C40 44 55 43 63 55");
+  const body = new Path2D("M6 63 Q25 50 44 45 C51 33 60 27 71 29 C77 30 81 33 84 37 L93 39 L83 43 C84 55 78 67 66 72 C48 79 24 74 6 63 Z");
+  const legs = new Path2D("M44 75 L41 86 M54 74 L53 86");
+  let w = 0, h = 0, dpr = 1;
+
+  const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+  }
+
+  // Same geometry as the app's RibbonGeometry: a wave that twists, flat front and back faces.
+  function geometry(phase) {
+    const amp = h * 0.2, wl = Math.max(w * 0.92, 1), tp = Math.max(w * 1.1, 1), base = h * 0.58, thick = 9;
+    const cy = (x) => { const t = x / wl * 2 * Math.PI; return base + amp * (Math.sin(t + phase) + 0.28 * Math.sin(2.3 * t - phase * 0.7 + 1.1)) / 1.28; };
+    const tw = (x) => Math.cos(x / tp * 2 * Math.PI + phase * 0.55 + 0.6);
+    return { cy, tw, thick };
+  }
+
+  function draw(time) {
+    const phase = reduce ? 0.9 : 0.9 + (time / 1000) * 0.16;
+    const g = geometry(phase);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const front = token("--ribbon"), back = token("--ribbon-back"), ink = token("--ink"), paper = token("--paper");
+    let top = [], bot = [], cur = null;
+    const flush = () => {
+      if (cur === null || top.length < 2) return;
+      ctx.beginPath(); ctx.moveTo(top[0][0], top[0][1]);
+      for (const p of top) ctx.lineTo(p[0], p[1]);
+      for (let i = bot.length - 1; i >= 0; i--) ctx.lineTo(bot[i][0], bot[i][1]);
+      ctx.closePath(); ctx.fillStyle = cur ? front : back; ctx.fill();
+    };
+    for (let x = -2; x <= w + 2; x += 2) {
+      const c = g.cy(x), s = g.cy(x + .5) - g.cy(x - .5), n = Math.sqrt(1 + s * s), nx = -s / n, ny = 1 / n;
+      const t = g.tw(x), width = Math.max(0.7, g.thick * (0.18 + 0.82 * Math.abs(t))), f = t >= 0;
+      const a = [x - nx * width, c - ny * width], b = [x + nx * width, c + ny * width];
+      if (cur !== f) { if (cur !== null) { top.push(a); bot.push(b); flush(); } top = [a]; bot = [b]; cur = f; }
+      else { top.push(a); bot.push(b); }
+    }
+    flush();
+
+    // The bird, perched on the ribbon.
+    const size = Math.min(110, h * 0.8), px = w * 0.66, py = g.cy(px) - size * 0.36;
+    ctx.save();
+    ctx.translate(px - size / 2, py - size / 2);
+    ctx.scale(size / 100, size / 100);
+    ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 3.6;
+    ctx.fillStyle = paper; ctx.fill(body);
+    ctx.strokeStyle = ink; ctx.stroke(legs); ctx.stroke(bird);
+    ctx.beginPath(); ctx.arc(73, 36, 3.4, 0, Math.PI * 2); ctx.fillStyle = front; ctx.fill();
+    ctx.restore();
+
+    if (!reduce) requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener("resize", () => { resize(); if (reduce) draw(0); });
+  requestAnimationFrame(draw);
+})();
+</script>
+
+</body>
+</html>

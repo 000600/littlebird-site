@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Christmas Gift Budget Calculator: How Much to Spend</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Add up everyone you’re buying for, see the split by relationship, and get a weekly savings target for Christmas. Free and private, with nothing to sign up for.">
+<meta property="og:title" content="Christmas gift budget calculator">
+<meta property="og:description" content="Add up everyone you’re buying for before December adds it up for you. People × amount each, split by relationship, with a weekly savings target.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Christmas gift budget calculator",
+      "description": "Add up everyone you’re buying for this Christmas, see the split by relationship, and get a weekly savings target.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any web browser",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "publisher": {"@type": "Organization", "name": "Little Bird"}
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to set a Christmas gift budget",
+      "step": [
+        {"@type": "HowToStep", "position": 1, "name": "Start from what you can pay in cash", "text": "Pick the total you can cover by the end of December without carrying a balance into spring, then fit the list to that number."},
+        {"@type": "HowToStep", "position": 2, "name": "List everyone, including the easy-to-forget", "text": "Include teachers, party hosts, the office gift swap and the neighbor who takes in your packages."},
+        {"@type": "HowToStep", "position": 3, "name": "Give each group one amount", "text": "Deciding per group is quicker than per person and keeps things even between siblings and cousins."},
+        {"@type": "HowToStep", "position": 4, "name": "Leave room for the extras", "text": "Add a cushion of about 10% for wrapping paper, tape, cards, postage and stocking stuffers."},
+        {"@type": "HowToStep", "position": 5, "name": "Write prices down as you buy", "text": "Record each purchase the same day so spent and left stay accurate."}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "How much should I spend on Christmas gifts?", "acceptedAnswer": {"@type": "Answer", "text": "Spend what you can pay off by January without stress. For a reference point, the National Retail Federation’s 2025 holiday survey found shoppers planned to spend $627.93 on gifts on average, out of $890.49 for the whole season."}},
+        {"@type": "Question", "name": "How much should I spend per person on Christmas gifts?", "acceptedAnswer": {"@type": "Answer", "text": "There is no standard amount. A common approach is tiers: the most for a partner and children, a middle amount for parents and siblings, and one small, fixed amount for everyone else. Agreeing on a limit with siblings or a gift swap keeps it fair."}},
+        {"@type": "Question", "name": "What should a Christmas budget include besides gifts?", "acceptedAnswer": {"@type": "Answer", "text": "Wrapping paper, tape, cards, postage, stocking stuffers and host gifts. The calculator’s optional 10% cushion covers these."}},
+        {"@type": "Question", "name": "How do I stick to my Christmas gift budget?", "acceptedAnswer": {"@type": "Answer", "text": "Decide the amount for each person before you shop, buy from gift ideas you already have instead of browsing, and record each price as you buy. Ordering early also avoids paying for rush shipping."}},
+        {"@type": "Question", "name": "Does this calculator save my numbers?", "acceptedAnswer": {"@type": "Answer", "text": "Only in your own browser, so they are still there when you come back. Nothing is sent anywhere and there is nothing to sign up for."}}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* Layout: the list of people on the left, the total and its ribbon held beside it on wide screens; on phones the total comes first and a slim total bar follows you down the list. */
+:root {
+  --paper: #F6F1E9;
+  --paper-2: #EFE8DC;
+  --ink: #1E1A17;
+  --ink-2: rgba(30, 26, 23, .64);
+  --ink-3: rgba(30, 26, 23, .42);
+  --rule: rgba(30, 26, 23, .13);
+  --ribbon: #C1432E;
+  --on-ribbon: #FFFFFF;
+  --clay: #B4583A; --sage: #557553; --plum: #7B4B78; --ochre: #9C7016;
+  --harbor: #3B6690; --rose: #AC4A64; --teal: #2B7770; --slate: #575B73;
+  --display: "Newsreader", "New York", "Iowan Old Style", Georgia, serif;
+  --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --measure: 62ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #151214; --paper-2: #1D191B; --ink: #F2EBE1; --ink-2: rgba(242, 235, 225, .66);
+    --ink-3: rgba(242, 235, 225, .44); --rule: rgba(242, 235, 225, .16);
+    --ribbon: #E46A50; --on-ribbon: #1A0F0C;
+    --clay: #E38D6E; --sage: #97BA92; --plum: #C48EC1; --ochre: #E2B95C;
+    --harbor: #89B1D6; --rose: #E88FA6; --teal: #72C3B9; --slate: #A9ADC6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #151214; --paper-2: #1D191B; --ink: #F2EBE1; --ink-2: rgba(242, 235, 225, .66);
+  --ink-3: rgba(242, 235, 225, .44); --rule: rgba(242, 235, 225, .16);
+  --ribbon: #E46A50; --on-ribbon: #1A0F0C;
+  --clay: #E38D6E; --sage: #97BA92; --plum: #C48EC1; --ochre: #E2B95C;
+  --harbor: #89B1D6; --rose: #E88FA6; --teal: #72C3B9; --slate: #A9ADC6;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+a { color: var(--ribbon); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--ribbon); outline-offset: 3px; border-radius: 4px; }
+.eyebrow { font: 600 12px/1.3 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.eyebrow.red { color: var(--ribbon); }
+.rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* Header */
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 400 22px/1 var(--display); }
+.brand svg { width: 34px; height: 34px; }
+.badge { font: 600 14px/1 var(--body); color: var(--ink); text-decoration: none; padding: 11px 16px; border: 1px solid var(--rule); border-radius: 999px; white-space: nowrap; }
+
+/* Opening */
+.opening { display: grid; gap: 18px; padding-block: 28px 36px; max-width: 760px; }
+.opening h1 { font-size: clamp(40px, 6vw, 68px); line-height: 1.03; }
+.opening h1 em { color: var(--ribbon); }
+.dek { font: 400 clamp(20px, 2.2vw, 24px)/1.42 var(--display); color: var(--ink-2); max-width: 36ch; }
+
+/* Calculator */
+.calc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 24px 64px; align-items: start; padding-bottom: 72px; }
+.summary { grid-column: 2; grid-row: 1; position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); display: grid; gap: 16px; border-top: 2px solid var(--ink); padding-top: 18px; min-width: 0; }
+.people { grid-column: 1; grid-row: 1; min-width: 0; }
+
+.total { font: 400 clamp(64px, 9vw, 96px)/.95 var(--display); letter-spacing: -0.02em; }
+.sentence { font: 400 20px/1.4 var(--display); color: var(--ink-2); }
+.split { display: flex; gap: 2px; height: 12px; margin-top: 6px; }
+.split i { display: block; min-width: 3px; height: 100%; background: var(--seg); transition: flex-grow .35s ease; }
+.split i:first-child { border-radius: 6px 0 0 6px; }
+.split i:last-child { border-radius: 0 6px 6px 0; }
+.split i:only-child { border-radius: 6px; }
+.split.empty { height: 12px; background: linear-gradient(var(--rule), var(--rule)) center / 100% 2px no-repeat; }
+@media (prefers-reduced-motion: reduce) { .split i { transition: none; } }
+.legend { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--rule); }
+.legend li { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding-block: 7px; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.legend li::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--seg); }
+.legend .pct { color: var(--ink-3); min-width: 3.2em; text-align: right; }
+.legend .amt { min-width: 4.5em; text-align: right; }
+.pace { font-size: 16px; }
+.pace b { font-weight: 600; }
+.scale { font-size: 14px; color: var(--ink-2); }
+
+.people-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); padding-top: 18px; }
+.people-head h2 { font-size: 30px; line-height: 1.1; }
+.people-head .hint { font-size: 14px; color: var(--ink-2); }
+.colhead, .row { display: grid; grid-template-columns: minmax(0, 1fr) 132px 14px 108px 76px; gap: 10px 12px; align-items: center; }
+.colhead { padding-block: 10px 6px; font: 600 11px/1.3 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.colhead span:nth-child(2) { text-align: center; }
+.colhead span:nth-child(4), .colhead span:nth-child(5) { text-align: right; }
+.row { padding-block: 12px; border-bottom: 1px solid var(--rule); }
+.who { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 12px; align-items: baseline; min-width: 0; }
+.knot { width: 10px; height: 10px; border-radius: 50%; background: var(--seg); transform: translateY(-1px); }
+.who label { display: block; font: 400 20px/1.25 var(--display); }
+.who .note { display: block; font-size: 13px; color: var(--ink-3); }
+.row.zero .who label { color: var(--ink-3); }
+.row.zero .knot { background: transparent; box-shadow: inset 0 0 0 1px var(--ink-3); }
+
+.stepper { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; }
+.stepper button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--rule); background: transparent; color: var(--ink); font: 400 22px/1 var(--body); cursor: pointer; }
+.stepper button:hover { border-color: var(--ink-3); }
+.stepper button:disabled { color: var(--ink-3); cursor: default; }
+input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.stepper input { width: 100%; min-width: 0; border: 0; background: transparent; color: var(--ink); text-align: center; font: 400 21px/1 var(--display); font-variant-numeric: tabular-nums; padding: 8px 0; }
+.times { color: var(--ink-3); text-align: center; font-size: 15px; }
+.money { display: flex; align-items: baseline; gap: 4px; border-bottom: 1px solid var(--ink-3); padding-bottom: 2px; }
+.money:focus-within { border-bottom-color: var(--ribbon); }
+.money .cur { color: var(--ink-3); font: 400 17px/1 var(--display); }
+.money input { width: 100%; min-width: 0; border: 0; background: transparent; color: var(--ink); text-align: right; font: 400 21px/1 var(--display); font-variant-numeric: tabular-nums; padding: 8px 2px 6px; }
+.money input:focus { outline: none; }
+.sub { text-align: right; font: 400 19px/1 var(--display); font-variant-numeric: tabular-nums; }
+.row.zero .sub { color: var(--ink-3); }
+
+.adjust { display: grid; gap: 22px; padding-top: 22px; }
+.toggle { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; align-items: start; cursor: pointer; }
+.toggle input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--ribbon); }
+.fit { display: grid; gap: 8px; }
+.fit label { font: 400 20px/1.3 var(--display); }
+.fit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.fit-row .money { width: 150px; }
+.btn { font: 600 15px/1 var(--body); color: var(--ink); background: transparent; border: 1px solid var(--ink-3); border-radius: 999px; padding: 13px 18px; min-height: 44px; cursor: pointer; }
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.quiet { border-color: var(--rule); color: var(--ink-2); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.currency { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-2); margin-left: auto; }
+.currency select { font: 15px var(--body); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 9px 10px; min-height: 44px; }
+.status { font-size: 14px; color: var(--ink-2); min-height: 1.2em; }
+#copyFallback { width: 100%; min-height: 200px; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 12px; padding: 12px; }
+
+/* Phone total bar */
+.dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; align-items: center; gap: 14px; background: var(--paper); border-top: 1px solid var(--rule);
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.dock .d-total { font: 400 28px/1 var(--display); font-variant-numeric: tabular-nums; }
+.dock .d-people { color: var(--ink-2); font-size: 14px; }
+.dock a { margin-left: auto; font-size: 15px; font-weight: 600; }
+
+/* Below the tool */
+section.block { padding-block: 72px; }
+.section-head { max-width: var(--measure); display: grid; gap: 14px; }
+.section-head h2 { font-size: clamp(32px, 4.2vw, 48px); line-height: 1.08; }
+.section-head h2 em { color: var(--ribbon); }
+.section-head p { color: var(--ink-2); font-size: 18px; }
+.feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: 56px; align-items: center; }
+.feature .shot img { display: block; width: 100%; height: auto; border-radius: 40px; border: 1px solid var(--rule); }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 10px; }
+.launch { font: 600 16px/1 var(--body); color: var(--on-ribbon); background: var(--ribbon); padding: 16px 22px; border-radius: 999px; }
+.cta small { color: var(--ink-2); font-size: 14px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; margin-top: 4px; }
+
+.steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--rule); counter-reset: step; }
+.steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; padding: 22px 20px 22px 0; }
+.steps li + li { padding-left: 20px; border-left: 1px solid var(--rule); }
+.steps li::before { content: counter(step); font: italic 400 26px/1 var(--display); color: var(--ribbon); }
+.steps h3 { font-size: 21px; line-height: 1.2; }
+.steps p { color: var(--ink-2); font-size: 15px; }
+
+details { border-top: 1px solid var(--rule); padding-block: 18px; max-width: 760px; }
+details:last-of-type { border-bottom: 1px solid var(--rule); }
+summary { cursor: pointer; font: 400 21px/1.3 var(--display); list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--ribbon); font-family: var(--body); }
+details[open] summary::after { content: "–"; }
+details p { margin-top: 10px; color: var(--ink-2); max-width: var(--measure); }
+
+footer { padding-block: 40px 64px; display: grid; gap: 18px; }
+.foot-nav { display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 15px; }
+.foot-nav a { color: var(--ink-2); }
+.foot-line { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--ink-3); font-size: 14px; }
+
+@media (max-width: 900px) {
+  .calc { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .summary { grid-column: 1; grid-row: 1; position: static; }
+  .people { grid-row: 2; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .steps li, .steps li + li { padding: 18px 0; border-left: 0; }
+  .steps li + li { border-top: 1px solid var(--rule); }
+  .feature { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .feature .shot { width: min(100%, 280px); }
+  section.block { padding-block: 56px; }
+  body.has-dock { padding-bottom: 76px; }
+}
+@media (max-width: 600px) {
+  .colhead { display: none; }
+  .row { grid-template-columns: 132px 14px minmax(0, 1fr) 72px; }
+  .row .who { grid-column: 1 / -1; }
+  .currency { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="../" aria-label="Little Bird home">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M6 63 Q25 50 44 45 C51 33 60 27 71 29 C77 30 81 33 84 37 L93 39 L83 43 C84 55 78 67 66 72 C48 79 24 74 6 63 Z M31 58 C40 44 55 43 63 55" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="73" cy="36" r="3.6" fill="var(--ribbon)"/>
+      </svg>
+      Little Bird
+    </a>
+    <a class="badge" href="../#plans">Free on iPhone</a>
+  </header>
+
+  <main>
+    <div class="opening">
+      <p class="eyebrow red">Free tool · Christmas 2026</p>
+      <h1>Christmas gift budget <em>calculator</em></h1>
+      <p class="dek">Add up everyone you’re buying for before December adds it up for you.</p>
+    </div>
+
+    <div class="calc">
+      <section class="summary" id="summary" aria-labelledby="sumHead">
+        <p class="eyebrow" id="sumHead">Your Christmas gift budget</p>
+        <p class="total num" id="total" aria-live="polite">$787</p>
+        <p class="sentence" id="sentence">19 people, about $41 each, including $72 for wrapping, shipping and the person you forgot.</p>
+        <div class="split" id="split" role="img" aria-label="Budget split by relationship"></div>
+        <ul class="legend num" id="legend" aria-label="Split by relationship"></ul>
+        <p class="pace" id="pace"></p>
+        <p class="scale" id="scale">The average US shopper planned to spend $628 on gifts in 2025, according to the <a href="https://nrf.com/media-center/press-releases/consumers-to-spend-second-highest-amount-on-record-according-to-nrf-holiday-survey">National Retail Federation’s holiday survey</a>.</p>
+      </section>
+
+      <section class="people" aria-labelledby="peopleHead">
+        <div class="people-head">
+          <h2 id="peopleHead">Who you’re buying for</h2>
+          <p class="hint" id="exampleNote">Example numbers. Change any line.</p>
+        </div>
+        <div class="colhead" aria-hidden="true"><span>Who</span><span>People</span><span></span><span>Each</span><span>Subtotal</span></div>
+        <div id="rows"></div>
+
+        <div class="adjust">
+          <label class="toggle" for="cushion"><input type="checkbox" id="cushion" checked><span>Add 10% for wrapping, cards, shipping and the person you forgot</span></label>
+
+          <form class="fit" id="fitForm" novalidate>
+            <label for="ceiling">Have a ceiling? Fit the list to it.</label>
+            <div class="fit-row">
+              <div class="money"><span class="cur" data-cur>$</span><input id="ceiling" type="number" inputmode="numeric" min="1" step="1" placeholder="600" aria-describedby="fitStatus"></div>
+              <button class="btn primary" type="submit">Fit my list</button>
+            </div>
+            <p class="status" id="fitStatus" role="status">Every amount is scaled by the same share and rounded down, so you land at or just under it.</p>
+          </form>
+
+          <div class="actions">
+            <button class="btn" type="button" id="copyBtn">Copy my list</button>
+            <button class="btn quiet" type="button" id="zeroBtn">Start from zero</button>
+            <button class="btn quiet" type="button" id="resetBtn">Use the example</button>
+            <label class="currency" for="currency">Currency
+              <select id="currency">
+                <option value="USD">$ USD</option>
+                <option value="GBP">£ GBP</option>
+                <option value="EUR">€ EUR</option>
+                <option value="CAD">$ CAD</option>
+                <option value="AUD">$ AUD</option>
+              </select>
+            </label>
+          </div>
+          <p class="status" id="copyStatus" role="status"></p>
+          <textarea id="copyFallback" readonly hidden aria-label="Your list as text"></textarea>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="dock" id="dock" hidden>
+  <span class="d-total" id="dockTotal">$787</span>
+  <span class="d-people" id="dockPeople">19 people</span>
+  <a href="#summary">See the split</a>
+</div>
+
+<hr class="rule">
+
+<section class="block" id="planner">
+  <div class="wrap feature">
+    <div class="section-head">
+      <p class="eyebrow red">Little Bird’s Holiday Planner</p>
+      <h2>Take the number <em>shopping with you.</em></h2>
+      <p>In Little Bird’s Holiday Planner, pick who you’re buying for and set your total. Give each person a usual budget. As each gift moves from Idea to Bought, Wrapped and Given, spent and left update on their own, and every hint they dropped this year sits right beside their name.</p>
+      <p>It’s private, with no account, and free for up to four people and one gifting season.</p>
+      <div class="cta">
+        <span class="launch">On the App Store October 27</span>
+        <small>Free · No account · iOS 26 and later</small>
+      </div>
+      <div class="links">
+        <a href="../#holidays">See the Holiday Planner</a>
+        <a href="../guide/reverse-gift-list.html">Read: the reverse gift list</a>
+      </div>
+    </div>
+    <div class="shot">
+      <img src="../img/seasons.jpg" width="560" height="1217" loading="lazy" alt="Little Bird’s Holidays 2026 planner on iPhone: $316 of an $800 budget spent, with six people and the status of each gift.">
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="block" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow red">Method</p>
+      <h2>How to set a Christmas gift budget</h2>
+      <p>Five steps, in order. The calculator above does the arithmetic for steps three and four.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Start from what you can pay in cash</h3><p>Pick the total you can cover by the end of December without a balance hanging around into spring. Then fit the list to the number.</p></li>
+      <li><h3>List everyone, including the easy-to-forget</h3><p>Teachers, the host of the party you’re going to, the office gift swap, the neighbor who takes in your packages.</p></li>
+      <li><h3>Give each group one amount</h3><p>Deciding per group is quicker than per person, and it keeps things even between siblings and cousins.</p></li>
+      <li><h3>Leave room for the extras</h3><p>Wrapping paper, tape, cards, postage and stocking stuffers add up. We suggest a 10% cushion.</p></li>
+      <li><h3>Write prices down as you buy</h3><p>Spent and left only stay honest if each purchase is recorded the same day.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="faq" style="padding-top: 8px">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom: 18px">
+      <p class="eyebrow red">Questions</p>
+      <h2>How much to spend on Christmas gifts</h2>
+    </div>
+    <details><summary>How much should I spend on Christmas gifts?</summary><p>Spend what you can pay off by January without stress. For a reference point, the National Retail Federation’s 2025 holiday survey found shoppers planned to spend $627.93 on gifts on average, out of $890.49 for the whole season. A smaller budget spent on things people actually asked for goes a long way.</p></details>
+    <details><summary>How much should I spend per person?</summary><p>There’s no standard amount. A common approach is tiers: the most for a partner and children, a middle amount for parents and siblings, and one small, fixed amount for everyone else. Agreeing on a limit with siblings or a gift swap keeps it fair.</p></details>
+    <details><summary>What should a Christmas budget include besides gifts?</summary><p>Wrapping paper, tape, cards, postage, stocking stuffers, and the host gift you remember on the drive over. The calculator’s 10% cushion is there for these.</p></details>
+    <details><summary>How do I stick to my Christmas gift budget?</summary><p>Decide the amount for each person before you shop, buy from ideas you already have instead of browsing, and record each price as you buy. Ordering early also saves you from paying for rush shipping.</p></details>
+    <details><summary>Does this calculator save my numbers?</summary><p>Only in your own browser, so they’re still here when you come back. Nothing is sent anywhere, and there’s nothing to sign up for.</p></details>
+  </div>
+</section>
+
+<div class="wrap">
+  <hr class="rule">
+  <footer>
+    <nav class="foot-nav" aria-label="Little Bird pages">
+      <a href="../">Little Bird</a>
+      <a href="../guide/reverse-gift-list.html">The reverse gift list guide</a>
+      <a href="../#privacy">Privacy policy</a>
+    </nav>
+    <div class="foot-line"><span>© 2026 Little Bird</span><span>Made for people who listen.</span></div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const EXAMPLE = [
+    { id: "partner", name: "Partner", note: "Spouse, girlfriend, boyfriend", ink: "rose", count: 1, amount: 150 },
+    { id: "kids", name: "Kids", note: "Your own, of any age", ink: "ochre", count: 2, amount: 75 },
+    { id: "parents", name: "Parents", note: "In-laws count too", ink: "clay", count: 2, amount: 60 },
+    { id: "siblings", name: "Siblings", note: "And their partners", ink: "sage", count: 2, amount: 40 },
+    { id: "little", name: "Nieces, nephews & grandkids", note: "The ones who will open it on video", ink: "teal", count: 3, amount: 25 },
+    { id: "friends", name: "Friends", note: "The close ones", ink: "plum", count: 4, amount: 20 },
+    { id: "work", name: "Coworkers & teachers", note: "Coaches and sitters too", ink: "harbor", count: 3, amount: 10 },
+    { id: "extras", name: "Hosts, neighbors & swaps", note: "Secret Santa, the package-taker", ink: "slate", count: 2, amount: 15 },
+  ];
+  const LOCALES = { USD: "en-US", GBP: "en-GB", EUR: "en-IE", CAD: "en-CA", AUD: "en-AU" };
+  const KEY = "lb-xmas-gift-budget-v1";
+
+  let state = fresh();
+  function fresh() {
+    return { counts: EXAMPLE.map((g) => g.count), amounts: EXAMPLE.map((g) => g.amount), cushion: true, currency: "USD", touched: false };
+  }
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (saved && Array.isArray(saved.counts) && saved.counts.length === EXAMPLE.length) state = Object.assign(fresh(), saved);
+  } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+
+  const $ = (id) => document.getElementById(id);
+  const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
+  const toNum = (v) => { const n = parseFloat(String(v).replace(/[^0-9.]/g, "")); return Number.isFinite(n) ? n : 0; };
+  let fmtCache = {};
+  function fmt(n) {
+    const c = state.currency;
+    fmtCache[c] = fmtCache[c] || new Intl.NumberFormat(LOCALES[c] || "en-US", { style: "currency", currency: c, maximumFractionDigits: 0, minimumFractionDigits: 0 });
+    return fmtCache[c].format(Math.round(n));
+  }
+  function symbol() {
+    const parts = new Intl.NumberFormat(LOCALES[state.currency] || "en-US", { style: "currency", currency: state.currency }).formatToParts(0);
+    return (parts.find((p) => p.type === "currency") || { value: "$" }).value;
+  }
+
+  // Pure arithmetic: subtotals, cushion and total from the state.
+  function compute(s) {
+    const subs = EXAMPLE.map((_, i) => s.counts[i] * s.amounts[i]);
+    const gifts = subs.reduce((a, b) => a + b, 0);
+    const people = s.counts.reduce((a, b) => a + b, 0);
+    const cushion = s.cushion ? Math.round(gifts * 0.1) : 0;
+    return { subs, gifts, people, cushion, total: gifts + cushion };
+  }
+
+  // Build the rows once.
+  const rowsEl = $("rows");
+  rowsEl.innerHTML = EXAMPLE.map((g) => `
+    <div class="row" id="row-${g.id}" style="--seg: var(--${g.ink})">
+      <div class="who"><span class="knot" aria-hidden="true"></span><div><label for="amt-${g.id}">${g.name.replace("&", "&amp;")}</label><span class="note">${g.note}</span></div></div>
+      <div class="stepper" role="group" aria-label="${g.name.replace("&", "and")}: number of people">
+        <button type="button" data-id="${g.id}" data-step="-1" aria-label="One fewer">−</button>
+        <input id="cnt-${g.id}" type="number" inputmode="numeric" min="0" max="99" step="1" aria-label="${g.name.replace("&", "and")}: number of people">
+        <button type="button" data-id="${g.id}" data-step="1" aria-label="One more">+</button>
+      </div>
+      <span class="times" aria-hidden="true">×</span>
+      <div class="money"><span class="cur" data-cur>$</span><input id="amt-${g.id}" type="number" inputmode="numeric" min="0" max="100000" step="1" aria-label="${g.name.replace("&", "and")}: amount each"></div>
+      <output class="sub" id="sub-${g.id}" for="cnt-${g.id} amt-${g.id}"></output>
+    </div>`).join("");
+
+  function fillInputs() {
+    EXAMPLE.forEach((g, i) => {
+      $("cnt-" + g.id).value = state.counts[i];
+      $("amt-" + g.id).value = state.amounts[i];
+    });
+    $("cushion").checked = state.cushion;
+    $("currency").value = state.currency;
+  }
+
+  function daysUntil(date, from) {
+    const a = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+    const b = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    return Math.round((b - a) / 864e5);
+  }
+  function paceText(total) {
+    if (total <= 0) return "";
+    const now = new Date();
+    let eve = new Date(now.getFullYear(), 11, 24), next = false;
+    let days = daysUntil(eve, now);
+    if (days < 0) { eve = new Date(now.getFullYear() + 1, 11, 24); days = daysUntil(eve, now); next = true; }
+    if (days === 0) return "It’s Christmas Eve. Wrap fast.";
+    if (days < 7) return "Christmas is this week. Shop from the list you already have.";
+    const weeks = Math.ceil(days / 7);
+    return `Set aside <b>${fmt(Math.ceil(total / weeks))} a week</b> and it’s covered by ${next ? "next " : ""}December 24, ${weeks} weeks from today.`;
+  }
+
+  function render() {
+    const r = compute(state);
+    const sym = symbol();
+    document.querySelectorAll("[data-cur]").forEach((el) => { el.textContent = sym; });
+
+    EXAMPLE.forEach((g, i) => {
+      $("sub-" + g.id).textContent = fmt(r.subs[i]);
+      $("row-" + g.id).classList.toggle("zero", r.subs[i] === 0);
+      $("row-" + g.id).querySelector('[data-step="-1"]').disabled = state.counts[i] === 0;
+    });
+
+    $("total").textContent = fmt(r.total);
+    $("dockTotal").textContent = fmt(r.total);
+    $("dockPeople").textContent = `${r.people} ${r.people === 1 ? "person" : "people"}`;
+
+    if (r.gifts === 0) {
+      $("sentence").textContent = "Add the people you’re buying for, and what you’d like to spend on each.";
+    } else {
+      const each = `${r.people} ${r.people === 1 ? "person" : "people"}, about ${fmt(r.total / r.people)} each`;
+      $("sentence").textContent = r.cushion ? `${each}, including ${fmt(r.cushion)} for wrapping, shipping and the person you forgot.` : `${each}.`;
+    }
+
+    // The ribbon: one segment per relationship, in that group's ink.
+    const parts = EXAMPLE.map((g, i) => ({ name: g.name, ink: `var(--${g.ink})`, v: r.subs[i] }))
+      .filter((p) => p.v > 0).sort((a, b) => b.v - a.v);
+    if (r.cushion > 0) parts.push({ name: "Cushion (10%)", ink: "var(--ink-3)", v: r.cushion });
+    const split = $("split");
+    split.classList.toggle("empty", parts.length === 0);
+    split.innerHTML = parts.map((p) => `<i style="--seg:${p.ink}; flex-grow:${p.v}"></i>`).join("");
+    split.setAttribute("aria-label", parts.length ? "Budget split: " + parts.map((p) => `${p.name} ${Math.round(p.v / r.total * 100)}%`).join(", ") : "No budget yet");
+    $("legend").innerHTML = parts.map((p) => `<li style="--seg:${p.ink}"><span>${p.name.replace("&", "&amp;")}</span><span class="pct">${Math.round(p.v / r.total * 100)}%</span><span class="amt">${fmt(p.v)}</span></li>`).join("");
+
+    $("pace").innerHTML = paceText(r.total);
+    $("scale").hidden = state.currency !== "USD";
+    $("exampleNote").textContent = state.touched ? "Your numbers, saved in this browser only." : "Example numbers. Change any line.";
+  }
+
+  function update(mutator) { mutator(); state.touched = true; save(); render(); }
+
+  rowsEl.addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-step]");
+    if (!b) return;
+    const i = EXAMPLE.findIndex((g) => g.id === b.dataset.id);
+    update(() => { state.counts[i] = clamp(state.counts[i] + Number(b.dataset.step), 0, 99); $("cnt-" + b.dataset.id).value = state.counts[i]; });
+  });
+  rowsEl.addEventListener("input", (e) => {
+    const m = e.target.id.match(/^(cnt|amt)-(.+)$/);
+    if (!m) return;
+    const i = EXAMPLE.findIndex((g) => g.id === m[2]);
+    update(() => {
+      if (m[1] === "cnt") state.counts[i] = clamp(Math.round(toNum(e.target.value)), 0, 99);
+      else state.amounts[i] = clamp(toNum(e.target.value), 0, 100000);
+    });
+  });
+  rowsEl.addEventListener("change", (e) => {
+    const m = e.target.id.match(/^(cnt|amt)-(.+)$/);
+    if (!m) return;
+    const i = EXAMPLE.findIndex((g) => g.id === m[2]);
+    e.target.value = m[1] === "cnt" ? state.counts[i] : state.amounts[i];
+  });
+  $("cushion").addEventListener("change", (e) => update(() => { state.cushion = e.target.checked; }));
+  $("currency").addEventListener("change", (e) => update(() => { state.currency = e.target.value; }));
+
+  // Scale every amount by the same share so the total lands at or under the ceiling.
+  $("fitForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const ceiling = Math.floor(toNum($("ceiling").value));
+    const status = $("fitStatus");
+    const before = compute(state);
+    if (ceiling <= 0) { status.textContent = "Enter the most you want to spend, then press Fit my list."; return; }
+    if (before.gifts === 0) { status.textContent = "Add some people first, then fit the list."; return; }
+    const factor = (state.cushion ? ceiling / 1.1 : ceiling) / before.gifts;
+    const roundDown = (v) => (v >= 20 ? Math.floor(v / 5) * 5 : Math.max(1, Math.floor(v)));
+    const amounts = state.amounts.map((a, i) => (state.counts[i] > 0 && a > 0 ? roundDown(a * factor) : a));
+    const trial = Object.assign({}, state, { amounts });
+    // Rounding the cushion can tip the total over by a little; trim the largest line until it fits.
+    for (let guard = 0; guard < 200 && compute(trial).total > ceiling; guard++) {
+      let k = -1;
+      amounts.forEach((a, i) => { if (trial.counts[i] > 0 && a > 1 && (k < 0 || a > amounts[k])) k = i; });
+      if (k < 0) break;
+      amounts[k] = Math.max(1, amounts[k] - (amounts[k] > 20 ? 5 : 1));
+    }
+    // Rounding down leaves slack; hand it back to the largest lines first while the total still fits.
+    const order = amounts.map((_, i) => i).filter((i) => trial.counts[i] > 0).sort((a, b) => amounts[b] - amounts[a]);
+    for (let grew = true, guard = 0; grew && guard < 200; guard++) {
+      grew = false;
+      for (const i of order) {
+        const step = amounts[i] >= 20 ? 5 : 1;
+        amounts[i] += step;
+        if (compute(trial).total <= ceiling) grew = true; else amounts[i] -= step;
+      }
+    }
+    update(() => { state.amounts = amounts; fillInputs(); });
+    const after = compute(state);
+    status.textContent = after.total > ceiling
+      ? `Even at ${fmt(1)} each, ${after.people} people come to ${fmt(after.total)}. Try fewer people.`
+      : `Every amount scaled to ${Math.round(factor * 100)}%. Your list now comes to ${fmt(after.total)} of ${fmt(ceiling)}.`;
+  });
+
+  $("zeroBtn").addEventListener("click", () => update(() => { state.counts = EXAMPLE.map(() => 0); fillInputs(); }));
+  $("resetBtn").addEventListener("click", () => {
+    const cur = state.currency;
+    state = fresh(); state.currency = cur;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    fillInputs(); render();
+    $("fitStatus").textContent = "Every amount is scaled by the same share and rounded down, so you land at or just under it.";
+  });
+
+  $("copyBtn").addEventListener("click", () => {
+    const r = compute(state);
+    const lines = [`My Christmas gift budget: ${fmt(r.total)} for ${r.people} ${r.people === 1 ? "person" : "people"}`, ""];
+    EXAMPLE.forEach((g, i) => { if (r.subs[i] > 0) lines.push(`${g.name}: ${state.counts[i]} × ${fmt(state.amounts[i])} = ${fmt(r.subs[i])}`); });
+    if (r.cushion) lines.push(`Wrapping, cards and shipping (10%): ${fmt(r.cushion)}`);
+    lines.push(`Total: ${fmt(r.total)}`, "", "Made with the Christmas gift budget calculator from Little Bird");
+    const text = lines.join("\n");
+    const status = $("copyStatus"), fallback = $("copyFallback");
+    const showFallback = () => {
+      fallback.value = text; fallback.hidden = false; fallback.focus(); fallback.select();
+      status.textContent = "Couldn’t reach the clipboard. The list is selected below.";
+    };
+    if (!navigator.clipboard || !navigator.clipboard.writeText) { showFallback(); return; }
+    navigator.clipboard.writeText(text).then(() => { status.textContent = "Copied. Paste it wherever you plan."; }, showFallback);
+  });
+
+  // On phones, a slim total bar follows you down the list while the summary is off screen.
+  const dock = $("dock");
+  const narrow = window.matchMedia("(max-width: 900px)");
+  let summaryVisible = true, rowsVisible = false;
+  const placeDock = () => {
+    const show = narrow.matches && !summaryVisible && rowsVisible;
+    dock.hidden = !show;
+    document.body.classList.toggle("has-dock", show);
+  };
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => { summaryVisible = e.isIntersecting; placeDock(); }).observe($("total"));
+    new IntersectionObserver(([e]) => { rowsVisible = e.isIntersecting; placeDock(); }).observe(document.querySelector(".people"));
+    narrow.addEventListener("change", placeDock);
+  }
+
+  fillInputs();
+  render();
+})();
+</script>
+</body>
+</html>

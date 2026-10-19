@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Support · Little Bird</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Help with Little Bird, the private gift idea keeper for iPhone: questions, purchases, and how to reach us.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap">
+<style>
+:root { --paper: #F6F1E9; --ink: #1E1A17; --ink-2: rgba(30,26,23,.66); --rule: rgba(30,26,23,.13); --ribbon: #C1432E;
+  --display: "Newsreader", "New York", Georgia, serif; --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; }
+@media (prefers-color-scheme: dark) { :root { --paper: #151214; --ink: #F2EBE1; --ink-2: rgba(242,235,225,.68); --rule: rgba(242,235,225,.16); --ribbon: #E46A50; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 720px; margin: 0 auto; padding-block: 28px 72px;
+  padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 44px; }
+header a { color: var(--ink); text-decoration: none; font: 400 22px/1 var(--display); display: flex; align-items: center; gap: 10px; }
+header svg { width: 32px; height: 32px; }
+nav a { color: var(--ink-2); font-size: 15px; margin-left: 16px; text-decoration: none; }
+h1 { font: 400 clamp(38px, 6vw, 54px)/1.05 var(--display); margin: 10px 0 18px; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font: 400 24px/1.25 var(--display); margin: 0 0 6px; }
+.eyebrow { font: 600 12px/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ribbon); }
+.lede { font: 400 21px/1.45 var(--display); color: var(--ink-2); margin: 0 0 26px; }
+section { padding-block: 18px; border-top: 1px solid var(--rule); }
+section p { margin: 0; color: var(--ink-2); }
+a { color: var(--ribbon); }
+a:focus-visible { outline: 2px solid var(--ribbon); outline-offset: 3px; border-radius: 4px; }
+footer { margin-top: 40px; color: var(--ink-2); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a href="../"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M6 63 Q25 50 44 45 C51 33 60 27 71 29 C77 30 81 33 84 37 L93 39 L83 43 C84 55 78 67 66 72 C48 79 24 74 6 63 Z M31 58 C40 44 55 43 63 55" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="73" cy="36" r="3.6" fill="var(--ribbon)"/></svg>Little Bird</a>
+  <nav><a href="../privacy/">Privacy</a><a href="../support/">Support</a></nav>
+</header>
+<main>
+<p class="eyebrow">Support</p>
+<h1>How can we help?</h1>
+<p class="lede">Little Bird keeps everything on your iPhone, so there’s no account to recover and nothing to log into.</p>
+<section><h2>Contact us</h2><p>Open a request at <a href="https://github.com/000600/littlebird-site/issues">github.com/000600/littlebird-site/issues</a>. Please don’t include personal details about the people in your list.</p></section>
+<section><h2>Restore a purchase</h2><p>Open Little Bird → Settings → Little Bird Plus, or the paywall, and tap Restore. Purchases are tied to your Apple Account.</p></section>
+<section><h2>Cancel a subscription</h2><p>Settings › your name › Subscriptions › Little Bird Plus. Lifetime is a one-time purchase and never renews.</p></section>
+<section><h2>Reminders don’t arrive</h2><p>In Little Bird, open Settings and turn on “Nudge me before each day.” If iOS asked earlier and you declined, allow notifications in the iPhone Settings app under Little Bird. Settings in the app shows your next scheduled nudge.</p></section>
+<section><h2>Save hints from Safari or shopping apps</h2><p>Tap Share on any product page and choose Little Bird. If it isn’t in the row, scroll to the end and tap More to add it.</p></section>
+<section><h2>Moving to a new iPhone</h2><p>Your hints come with your iPhone backup (iCloud or computer). There is no separate account.</p></section>
+</main>
+<footer><span>© 2026 Little Bird</span><a href="../">Home</a><a href="../guide/reverse-gift-list.html">The reverse gift list</a><a href="../calculator/christmas-gift-budget.html">Gift budget calculator</a></footer>
+</div>
+</body>
+</html>
